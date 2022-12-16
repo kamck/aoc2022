@@ -1,9 +1,13 @@
-ClockCircuit = Struct.new(:cycle_count) do
+class ClockCircuit
   CYCLES = { addx: 2, noop: 1 }
 
+  attr_reader :cycle_count
+
   def tick(inst)
+    @cycle_count ||= 0
+
     CYCLES[inst.to_sym].times do
-      self.cycle_count += 1
+      @cycle_count += 1
       yield
     end
   end
